@@ -27,7 +27,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <ListView
-        android:id="@+id/priprema_glumci_list"
+        android:id="@+id/beleske_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
