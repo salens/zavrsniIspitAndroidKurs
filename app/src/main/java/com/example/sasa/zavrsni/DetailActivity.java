@@ -55,7 +55,8 @@ public class DetailActivity extends AppCompatActivity {
         final int key = getIntent().getExtras().getInt(ListActivity.ACTOR_KEY);
 
         if (key != 0) {
-
+            Button save = (Button) findViewById(R.id.save_beleska);
+            save.setVisibility(View.INVISIBLE);
             try {
 
                     a = getDatabaseHelper().getBeleskaDao().queryForId(key);
@@ -75,7 +76,6 @@ public class DetailActivity extends AppCompatActivity {
             }
 
         }
-
             Button save = (Button) findViewById(R.id.save_beleska);
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,22 +91,25 @@ public class DetailActivity extends AppCompatActivity {
 
 
                     try {
-
-                        if(key!= 0) {
-                            getDatabaseHelper().getBeleskaDao().update(a);
-                        }else {
-                            getDatabaseHelper().getBeleskaDao().create(a);
-                        }
                         //provera podesenja
                         boolean toast = prefs.getBoolean(NOTIF_TOAST, false);
                         boolean status = prefs.getBoolean(NOTIF_STATUS, false);
 
+                        if(key!= 0) {
+                            getDatabaseHelper().getBeleskaDao().update(a);
+
+
+                        }else {
+                            getDatabaseHelper().getBeleskaDao().create(a);
+                        }
+
+
                         if (toast) {
-                            Toast.makeText(getBaseContext(), "Beleska je Snimljena", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Beleska je Snimljena - " + a.getmNaslov(), Toast.LENGTH_SHORT).show();
                         }
 
                         if (status) {
-                            showMessage("Beleska is updated");
+                            showMessage("Beleska is saved");
 
                         }
 
@@ -171,81 +174,10 @@ public class DetailActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void selectPicture(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
-    }
-
-    /**
-     * Sismtemska metoda koja se automatksi poziva ako se
-     * aktivnost startuje u startActivityForResult rezimu
-     *
-     * Ako je ti slucaj i ako je sve proslo ok, mozemo da izvucemo
-     * sadrzaj i to da prikazemo. Rezultat NIJE sliak nego URI do te slike.
-     * Na osnovu toga mozemo dobiti tacnu putnaju do slike ali i samu sliku
-     * */
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode == RESULT_OK) {
-//            if (requestCode == SELECT_PICTURE) {
-//                Uri selectedImageUri = data.getData();
-//
-//                try {
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-//                    imagePath = selectedImageUri.toString();
-//
-//                    if (preview != null){
-//                        preview.setImageBitmap(bitmap);
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-
-    //za dodavanja u ovom slucaju filmova
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-//            case R.id.priprema_add_movie:
-//                //OTVORI SE DIALOG UNESETE INFORMACIJE
-//                final Dialog dialog = new Dialog(this);
-//                dialog.setContentView(R.layout.priprema_add_movie);
-//
-//                Button add = (Button) dialog.findViewById(R.id.add_movie);
-//                add.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        EditText name = (EditText) dialog.findViewById(R.id.movie_name);
-//                        EditText genre = (EditText) dialog.findViewById(R.id.movie_genre);
-//                        EditText year = (EditText) dialog.findViewById(R.id.movie_year);
-//
-//                        Movie m = new Movie();
-//                        m.setmName(name.getText().toString());
-//                        m.setmGenre(genre.getText().toString());
-//                        m.setmYear(year.getText().toString());
-//                        m.setmUser(a);
-//
-//                        try {
-//                            getDatabaseHelper().getMovieDao().create(m);
-//                        } catch (SQLException e) {
-//                            e.printStackTrace();
-//                        }
-//                        //URADITI REFRESH
-//                        refresh();
-//
-//                        showMessage("New movie added to actor");
-//
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                dialog.show();
-//
-//                break;
+
             case R.id.priprema_edit:
                 //POKUPITE INFORMACIJE SA EDIT POLJA
                 a.setmNaslov(name.getText().toString());
@@ -256,7 +188,6 @@ public class DetailActivity extends AppCompatActivity {
                     getDatabaseHelper().getBeleskaDao().update(a);
 
                     showMessage("Beleska is updated");
-                    Toast.makeText(this, "Beleska je Update-ovana", Toast.LENGTH_SHORT).show();
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -267,9 +198,9 @@ public class DetailActivity extends AppCompatActivity {
                 try {
                     getDatabaseHelper().getBeleskaDao().delete(a);
 
-                    showMessage("Beleska is deleted");
+                    showMessage("Beleska is deleted " + a.getmNaslov().toString());
 
-                    finish(); //moramo pozvati da bi se vratili na prethodnu aktivnost
+                    finish();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -280,7 +211,6 @@ public class DetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Metoda koja komunicira sa bazom podataka
     public PripremaORMLightHelper getDatabaseHelper() {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(this, PripremaORMLightHelper.class);
@@ -292,8 +222,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        // nakon rada sa bazo podataka potrebno je obavezno
-        //osloboditi resurse!
         if (databaseHelper != null) {
             OpenHelperManager.releaseHelper();
             databaseHelper = null;
