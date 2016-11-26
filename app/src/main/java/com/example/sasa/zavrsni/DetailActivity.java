@@ -150,7 +150,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-        // prikazuje poruku
+    // prikazuje poruku
     private void showMessage(String message){
         //provera podesenja
         boolean toast = prefs.getBoolean(NOTIF_TOAST, false);
