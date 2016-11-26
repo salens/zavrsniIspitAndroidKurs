@@ -16,7 +16,7 @@
             android:name="com.example.sasa.zavrsni.ListActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:icon="@mipmap/ic_launcher"
-            android:label="Beleske:">
+            android:label="Lista Beleske">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
         <activity
             android:name="com.example.sasa.zavrsni.DetailActivity"
             android:icon="@mipmap/ic_launcher"
-            android:label="Detalji Beleske:"
+            android:label="Detalji Beleske"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

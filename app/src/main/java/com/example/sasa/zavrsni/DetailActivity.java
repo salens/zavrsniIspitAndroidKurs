@@ -34,8 +34,6 @@ public class DetailActivity extends AppCompatActivity {
     private EditText bio;
     private EditText birth;
 
-    private static final int SELECT_PICTURE = 1;
-
     private SharedPreferences prefs;
     private Beleska a;
 
@@ -76,6 +74,7 @@ public class DetailActivity extends AppCompatActivity {
             }
 
         }
+
             Button save = (Button) findViewById(R.id.save_beleska);
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,11 +94,10 @@ public class DetailActivity extends AppCompatActivity {
                         boolean toast = prefs.getBoolean(NOTIF_TOAST, false);
                         boolean status = prefs.getBoolean(NOTIF_STATUS, false);
 
-                        if(key!= 0) {
+                        if (key != 0) {
                             getDatabaseHelper().getBeleskaDao().update(a);
 
-
-                        }else {
+                        } else {
                             getDatabaseHelper().getBeleskaDao().create(a);
                         }
 
@@ -109,7 +107,7 @@ public class DetailActivity extends AppCompatActivity {
                         }
 
                         if (status) {
-                            showMessage("Beleska is saved");
+                            showMessage("Nova Beleska is saved");
 
                         }
 
@@ -130,7 +128,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    finish();
+                finish();
 
             }
         });
@@ -176,6 +174,7 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()){
 
             case R.id.priprema_edit:
