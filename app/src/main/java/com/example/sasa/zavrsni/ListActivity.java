@@ -25,13 +25,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.sasa.zavrsni.db.PripremaORMLightHelper;
-import com.example.sasa.zavrsni.db.model.Actor;
+import com.example.sasa.zavrsni.db.model.Beleska;
 import com.example.sasa.zavrsni.dilog.AboutDialog;
-import com.example.sasa.zavrsni.preferences.PripremaPrefererences;
+import com.example.sasa.zavrsni.preferences.PrefererencesActivity;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.io.IOException;
@@ -48,6 +47,7 @@ public class ListActivity extends AppCompatActivity {
     private SharedPreferences prefs;
 
     public static String ACTOR_KEY = "ACTOR_KEY";
+
     public static String NOTIF_TOAST = "notif_toast";
     public static String NOTIF_STATUS = "notif_statis";
 
@@ -73,14 +73,14 @@ public class ListActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.priprema_glumci_list);
 
         try {
-            List<Actor> list = getDatabaseHelper().getActorDao().queryForAll();
+            List<Beleska> list = getDatabaseHelper().getBeleskaDao().queryForAll();
 
             ListAdapter adapter = new ArrayAdapter<>(ListActivity.this, R.layout.list_item, list);
             listView.setAdapter(adapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Actor p = (Actor) listView.getItemAtPosition(position);
+                    Beleska p = (Beleska) listView.getItemAtPosition(position);
 
                     Intent intent = new Intent(ListActivity.this, DetailActivity.class);
                     intent.putExtra(ACTOR_KEY, p.getmId());
@@ -111,13 +111,13 @@ public class ListActivity extends AppCompatActivity {
         ListView listview = (ListView) findViewById(R.id.priprema_glumci_list);
 
         if (listview != null){
-            ArrayAdapter<Actor> adapter = (ArrayAdapter<Actor>) listview.getAdapter();
+            ArrayAdapter<Beleska> adapter = (ArrayAdapter<Beleska>) listview.getAdapter();
 
             if(adapter!= null)
             {
                 try {
                     adapter.clear();
-                    List<Actor> list = getDatabaseHelper().getActorDao().queryForAll();
+                    List<Beleska> list = getDatabaseHelper().getBeleskaDao().queryForAll();
 
                     adapter.addAll(list);
 
@@ -181,64 +181,11 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.priprema_add_new_actor:
-                //DIALOG ZA UNOS PODATAKA
-                final Dialog dialog = new Dialog(this);
-                dialog.setContentView(R.layout.priprema_add_actor_layout);
+            case R.id.add_new_beleska:
 
-                Button choosebtn = (Button) dialog.findViewById(R.id.choose);
-                choosebtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        preview = (ImageView) dialog.findViewById(R.id.preview_image);
-                        selectPicture();
-                    }
-                });
-
-                Button add = (Button) dialog.findViewById(R.id.add_actor);
-                add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EditText name = (EditText) dialog.findViewById(R.id.actor_name);
-                        EditText bio = (EditText) dialog.findViewById(R.id.actor_biography);
-                        RatingBar rating = (RatingBar) dialog.findViewById(R.id.acrtor_rating);
-                        EditText birth = (EditText) dialog.findViewById(R.id.actor_birth);
-
-                        Actor a = new Actor();
-                        a.setmName(name.getText().toString());
-                        a.setmBiography(bio.getText().toString());
-                        a.setmBirth(birth.getText().toString());
-                        a.setmScore(rating.getRating());
-                        a.setImage(imagePath);
-
-                        try {
-                            getDatabaseHelper().getActorDao().create(a);
-
-                            //provera podesenja
-                            boolean toast = prefs.getBoolean(NOTIF_TOAST, false);
-                            boolean status = prefs.getBoolean(NOTIF_STATUS, false);
-
-                            if (toast){
-                                Toast.makeText(ListActivity.this, "Added new actor", Toast.LENGTH_SHORT).show();
-                            }
-
-                            if (status){
-                                showStatusMesage("Added new actor");
-                            }
-
-                            //REFRESH
-                            refresh();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-                dialog.show();
+                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                intent.putExtra(ACTOR_KEY, 0);
+                startActivity(intent);
 
                 break;
             case R.id.priprema_about:
@@ -247,7 +194,7 @@ public class ListActivity extends AppCompatActivity {
                 alertDialog.show();
                 break;
             case R.id.priprema_preferences:
-                startActivity(new Intent(ListActivity.this, PripremaPrefererences.class));
+                startActivity(new Intent(ListActivity.this, PrefererencesActivity.class));
                 break;
         }
 

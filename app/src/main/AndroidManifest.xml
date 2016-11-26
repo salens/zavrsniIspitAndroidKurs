@@ -16,7 +16,7 @@
             android:name="com.example.sasa.zavrsni.ListActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:icon="@mipmap/ic_launcher"
-            android:label="Actors">
+            android:label="Beleske:">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +29,11 @@
         <activity
             android:name="com.example.sasa.zavrsni.DetailActivity"
             android:icon="@mipmap/ic_launcher"
-            android:label="Actor Detail"
+            android:label="Detalji Beleske:"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.example.sasa.zavrsni.preferences.PripremaPrefererences"
+            android:name=".preferences.PrefererencesActivity"
             android:label="@string/activity_settings_name"
             android:parentActivityName="com.example.sasa.zavrsni.ListActivity"
             android:theme="@style/AppTheme.NoActionBar" />

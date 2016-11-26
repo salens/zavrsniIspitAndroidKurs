@@ -8,12 +8,12 @@ import android.view.MenuItem;
 
 import com.example.sasa.zavrsni.R;
 
-public class PripremaPrefererences extends PreferenceActivity {
+public class PrefererencesActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new PripremaPrefererences.PrefsFragment()).commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefererencesActivity.PrefsFragment()).commit();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PripremaPrefererences extends PreferenceActivity {
             super.onCreate(savedInstanceState);
 
             // Load the preferences from an XML resource
-            addPreferencesFromResource(R.xml.priprema_preferences);
+            addPreferencesFromResource(R.xml.zavrsni_preferences);
         }
     }
 }

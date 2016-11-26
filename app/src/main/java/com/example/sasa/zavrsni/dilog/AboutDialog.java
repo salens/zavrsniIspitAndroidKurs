@@ -13,7 +13,7 @@ public class AboutDialog extends AlertDialog.Builder{
         super(context);
 
         setTitle(R.string.dialog_about_title);
-        setMessage("Stanislav Sencanski");
+        setMessage("Beleske projekat je kreirao Stanislav Sencanski, ovo je verzija: 1.0");
         setCancelable(false);
 
         setPositiveButton(R.string.dialog_about_yes, new DialogInterface.OnClickListener() {

@@ -12,10 +12,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name"/>
+            android:text="Naziv Beleske"/>
 
         <EditText
-            android:id="@+id/actor_name"
+            android:id="@+id/beleska_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -30,12 +30,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Biography"/>
+            android:text="Opis"/>
 
         <EditText
-            android:id="@+id/actor_biography"
+            android:id="@+id/beleska_opis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="5dp">
 
     </LinearLayout>
 
@@ -48,62 +56,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rating"/>
-
-        <RatingBar
-            android:id="@+id/acrtor_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1.0"
-            android:rating="0.0"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Birth"/>
+            android:text="Datum Beleske"/>
 
         <EditText
-            android:id="@+id/actor_birth"
+            android:id="@+id/beleska_datum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Choose Image"/>
-
-        <ImageView
-            android:id="@+id/preview_image"
-            android:foregroundGravity="center_horizontal"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
-
-        <Button
-            android:id="@+id/choose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/preview_image"
-            android:text="Choose"/>
-
-
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,10 +74,10 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/add_actor"
+            android:id="@+id/add_beleska"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"/>
+            android:text="Snimi"/>
 
     </LinearLayout>
 
